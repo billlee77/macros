@@ -82,7 +82,8 @@ int Fun4All_G4_EICDetector(
   //   Input::SARTRE = true;
 
   // Simple multi particle generator in eta/phi/pt ranges
-  Input::SIMPLE = true;
+  //Input::SIMPLE = true;
+  Input::SIMPLE = false;
   // Input::SIMPLE_NUMBER = 2; // if you need 2 of them
   // Input::SIMPLE_VERBOSITY = 1;
 
@@ -99,8 +100,8 @@ int Fun4All_G4_EICDetector(
   // And/Or read generated particles from file
 
   // eic-smear output
-  //  Input::READEIC = true;
-  INPUTREADEIC::filename = inputFile;
+  Input::READEIC = true;
+  // INPUTREADEIC::filename = inputFile;
 
   // HepMC2 files
   //  Input::HEPMC = true;
@@ -222,10 +223,10 @@ int Fun4All_G4_EICDetector(
   // Write the DST
   //======================
 
-  Enable::DSTOUT = false;
+  Enable::DSTOUT = true;
   DstOut::OutputDir = outdir;
   DstOut::OutputFile = outputFile;
-  Enable::DSTOUT_COMPRESS = false;  // Compress DST files
+  Enable::DSTOUT_COMPRESS = true;  // Compress DST files
 
   //Option to convert DST to human command readable TTree for quick poke around the outputs
 //  Enable::DSTREADER = true;
@@ -240,6 +241,9 @@ int Fun4All_G4_EICDetector(
   //  Enable::ABSORBER = true;
   //  Enable::OVERLAPCHECK = true;
   //  Enable::VERBOSITY = 1;
+
+  // ZDC Setting
+  nable::ZDC_DISABLE_BLACKHOLE = true;
 
   //  Enable::BBC = true;
   Enable::BBCFAKE = true; // Smeared vtx and t0, use if you don't want real BBC in simulation
