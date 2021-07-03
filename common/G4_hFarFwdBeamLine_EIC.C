@@ -613,7 +613,7 @@ void hFarFwdDefineBeamPipe(PHG4Reco *g4Reco)
 
 float PosFlip(float pos) {
   if(Enable::HFARFWD_MAGNETS_IP6) {
-  	return -pos;
+  	return pos;
   } else {
   	return pos;
   }
@@ -621,7 +621,7 @@ float PosFlip(float pos) {
 
 float AngleFlip(float angle){
   if(Enable::HFARFWD_MAGNETS_IP6) {
-  	return -angle;
+  	return angle;
   } else {
   	return angle;
   }
@@ -629,7 +629,7 @@ float AngleFlip(float angle){
 
 float MagFieldFlip(float Bfield){
   if(Enable::HFARFWD_MAGNETS_IP6) {
-  	return -Bfield;
+  	return Bfield;
   } else {
   	return Bfield;
   }
