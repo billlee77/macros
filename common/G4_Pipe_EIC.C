@@ -114,7 +114,7 @@ double Pipe(PHG4Reco* g4Reco,
     if (Enable::IP8)
     {
       cout <<__PRETTY_FUNCTION__<<" IP8 beam chamber not defined yet! Consider disable G4PIPE::use_forward_pipes"<<endl;
-      exit(1);
+//      exit(1);
     }
   }
 
@@ -132,7 +132,7 @@ double Pipe(PHG4Reco* g4Reco,
     if (Enable::IP8)
     {
       cout <<__PRETTY_FUNCTION__<<" IP8 beam chamber not defined yet! Consider disable G4PIPE::use_forward_pipes"<<endl;
-      exit(1);
+//      exit(1);
     }
   }
 
