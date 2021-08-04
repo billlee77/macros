@@ -6,7 +6,7 @@
 #include <DisplayOn.C>
 #include <G4Setup_EICDetector.C>
 #include <G4_DSTReader_EICDetector.C>
-#include <G4_EventEvaluator.C>
+//#include <G4_EventEvaluator.C>
 #include <G4_FwdJets.C>
 #include <G4_Global.C>
 #include <G4_Input.C>
@@ -289,7 +289,7 @@ int Fun4All_G4_EICDetector(
   Enable::CTTL = true;
 
   Enable::TRACKING = true;
-  Enable::TRACKING_EVAL = Enable::TRACKING && true;
+//  Enable::TRACKING_EVAL = Enable::TRACKING && true;
   G4TRACKING::DISPLACED_VERTEX = false;  // this option exclude vertex in the track fitting and use RAVE to reconstruct primary and 2ndary vertexes
                                          // projections to calorimeters
   G4TRACKING::PROJECTION_EEMC = true;
@@ -302,14 +302,14 @@ int Fun4All_G4_EICDetector(
   Enable::CEMC_CELL = Enable::CEMC && true;
   Enable::CEMC_TOWER = Enable::CEMC_CELL && true;
   Enable::CEMC_CLUSTER = Enable::CEMC_TOWER && true;
-  Enable::CEMC_EVAL = Enable::CEMC_CLUSTER && true;
+//  Enable::CEMC_EVAL = Enable::CEMC_CLUSTER && true;
 
   Enable::HCALIN = true;
   //  Enable::HCALIN_ABSORBER = true;
   Enable::HCALIN_CELL = Enable::HCALIN && true;
   Enable::HCALIN_TOWER = Enable::HCALIN_CELL && true;
   Enable::HCALIN_CLUSTER = Enable::HCALIN_TOWER && true;
-  Enable::HCALIN_EVAL = Enable::HCALIN_CLUSTER && true;
+//  Enable::HCALIN_EVAL = Enable::HCALIN_CLUSTER && true;
 
   Enable::MAGNET = true;
 
@@ -318,7 +318,7 @@ int Fun4All_G4_EICDetector(
   Enable::HCALOUT_CELL = Enable::HCALOUT && true;
   Enable::HCALOUT_TOWER = Enable::HCALOUT_CELL && true;
   Enable::HCALOUT_CLUSTER = Enable::HCALOUT_TOWER && true;
-  Enable::HCALOUT_EVAL = Enable::HCALOUT_CLUSTER && true;
+//  Enable::HCALOUT_EVAL = Enable::HCALOUT_CLUSTER && true;
 
   // EICDetector geometry - barrel
   Enable::DIRC = true;
@@ -333,25 +333,25 @@ int Fun4All_G4_EICDetector(
   //  Enable::FEMC_ABSORBER = true;
   Enable::FEMC_TOWER = Enable::FEMC && true;
   Enable::FEMC_CLUSTER = Enable::FEMC_TOWER && true;
-  Enable::FEMC_EVAL = Enable::FEMC_CLUSTER && true;
+//  Enable::FEMC_EVAL = Enable::FEMC_CLUSTER && true;
 
   Enable::FHCAL = true;
   //  Enable::FHCAL_ABSORBER = true;
   Enable::FHCAL_TOWER = Enable::FHCAL && true;
   Enable::FHCAL_CLUSTER = Enable::FHCAL_TOWER && true;
-  Enable::FHCAL_EVAL = Enable::FHCAL_CLUSTER && true;
+//  Enable::FHCAL_EVAL = Enable::FHCAL_CLUSTER && true;
 
   // EICDetector geometry - 'electron' direction
   Enable::EEMC = true;
   Enable::EEMC_TOWER = Enable::EEMC && true;
   Enable::EEMC_CLUSTER = Enable::EEMC_TOWER && true;
-  Enable::EEMC_EVAL = Enable::EEMC_CLUSTER && true;
+//  Enable::EEMC_EVAL = Enable::EEMC_CLUSTER && true;
 
   Enable::EHCAL = true;
   Enable::EHCAL_CELL = Enable::EHCAL && true;
   Enable::EHCAL_TOWER = Enable::EHCAL_CELL && true;
   Enable::EHCAL_CLUSTER = Enable::EHCAL_TOWER && true;
-  Enable::EHCAL_EVAL = Enable::EHCAL_CLUSTER && false;
+//  Enable::EHCAL_EVAL = Enable::EHCAL_CLUSTER && false;
 
   Enable::PLUGDOOR = false;
 
@@ -361,7 +361,7 @@ int Fun4All_G4_EICDetector(
 
   // jet reconstruction
   Enable::FWDJETS = true;
-  Enable::FWDJETS_EVAL = Enable::FWDJETS && true;
+//  Enable::FWDJETS_EVAL = Enable::FWDJETS && true;
 
   // new settings using Enable namespace in GlobalVariables.C
   Enable::BLACKHOLE = true;
@@ -369,7 +369,7 @@ int Fun4All_G4_EICDetector(
   //BlackHoleGeometry::visible = true;
 
   // Enabling the event evaluator?
-  Enable::EVENT_EVAL = true;
+//  Enable::EVENT_EVAL = true;
   // EVENT_EVALUATOR::Verbosity = 1;
   // EVENT_EVALUATOR::EnergyThreshold = 0.05; // GeV
 
@@ -493,23 +493,23 @@ int Fun4All_G4_EICDetector(
   // Simulation evaluation
   //----------------------
 
-  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
-
-  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
-
-  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
-
-  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
-
-  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
-
-  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
-
-  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
-
-  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
-
-  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
+//  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
+//
+//  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
+//
+//  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
+//
+//  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
+//
+//  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
+//
+//  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
+//
+//  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
+//
+//  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
+//
+//  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
 
   if (Enable::USER) UserAnalysisInit();
 
