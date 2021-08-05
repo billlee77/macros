@@ -393,7 +393,7 @@ void hFarFwdDefineDetectorsIP6(PHG4Reco *g4Reco)
     if (verbosity)
       detB0->Verbosity(verbosity);
     detB0->OverlapCheck(overlapCheck);
-    detB0->SetMotherSubsystem(hFarFwdBeamLine::B0Magnet);
+    detB0->SetMotherSubsystem(hFarFwdBeamLine::hFarFwdBeamLineEnclosure);
     g4Reco->registerSubsystem(detB0);
   }
 }
