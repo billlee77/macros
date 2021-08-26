@@ -359,6 +359,8 @@ int Fun4All_G4_EICDetector(
   Enable::EHCAL_CLUSTER = Enable::EHCAL_TOWER && true;
 //  Enable::EHCAL_EVAL = Enable::EHCAL_CLUSTER && false;
 
+  Enable::FFR_EVAL = Enable::HFARFWD_MAGNETS && Enable::HFARFWD_VIRTUAL_DETECTORS && true;
+
   Enable::PLUGDOOR = false;
 
   // Other options
@@ -373,6 +375,10 @@ int Fun4All_G4_EICDetector(
   Enable::BLACKHOLE = true;
   //Enable::BLACKHOLE_SAVEHITS = false; // turn off saving of bh hits
   //BlackHoleGeometry::visible = true;
+  
+  // ZDC
+  // Enable::ZDC = true;
+  // Enable::ZDC_DISABLE_BLACKHOLE = true;
 
   // Enabling the event evaluator?
 //  Enable::EVENT_EVAL = true;
@@ -499,6 +505,7 @@ int Fun4All_G4_EICDetector(
   // Simulation evaluation
   //----------------------
 
+<<<<<<< HEAD
 //  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
 //
 //  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
@@ -515,9 +522,12 @@ int Fun4All_G4_EICDetector(
 //
 //  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
 //
+//  if (Enable::FFR_EVAL) FFR_Eval(outputroot + "_g4ffr_eval.root");
+//
 //  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
 
   if (Enable::USER) UserAnalysisInit();
+
 
   //--------------
   // Set up Input Managers
