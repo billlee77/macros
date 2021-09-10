@@ -69,6 +69,7 @@ int Fun4All_G4_EICDetector(
   // Enable::IP6 = true;
   Enable::IP8 = true;
   G4PIPE::use_forward_pipes = false;
+  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275 
   // Enable::HFARFWD_ION_ENERGY=275;
