@@ -78,7 +78,7 @@ int Fun4All_G4_EICDetector(
   // 110 GeV Pb beam 
   // IF you are not Mark or Jackson, then you should not use this energy setting
   // Enable::HFARFWD_ION_ENERGY=275*110/108.4;
-  Enable::HFARFWD_ION_ENERGY=100;
+  Enable::HFARFWD_ION_ENERGY=62;
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
