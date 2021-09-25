@@ -10,17 +10,24 @@
 
 #include <GlobalVariables.C>
 
-#include <g4detectors/PHG4ConeSubsystem.h>
+#include <eccefastpidreco/ECCEFastPIDReco.h>
+#include <eccefastpidreco/ECCEdRICHFastPIDMap.h>
+#include <g4drich/EICG4dRICHSubsystem.h>
 #include <g4trackfastsim/PHG4TrackFastSim.h>
 
 #include <g4main/PHG4Reco.h>
 
 R__LOAD_LIBRARY(libg4detectors.so)
+R__LOAD_LIBRARY(libEICG4dRICH.so)
+
+R__LOAD_LIBRARY(libECCEFastPIDReco.so)
 
 namespace Enable
 {
   bool RICH = false;
+  bool RICH_RECO = false;
   bool RICH_OVERLAPCHECK = false;
+  int RICH_VERBOSITY = 0;
 }  // namespace Enable
 
 void RICHInit()
@@ -34,63 +41,53 @@ void RICHInit()
 //- it starts 180 cm from IP
 //- radius of aerogel part starts at 110 cm at rises up to 120cm over 20 cm of length.
 //- at 175 cm from IP it rapidly grows radially to radius 210cm at stays constant like a cylinder until end at 280cm from the IP
-void RICHSetup(PHG4Reco* g4Reco)
+void RICHSetup(PHG4Reco *g4Reco)
 {
   bool OverlapCheck = Enable::OVERLAPCHECK || Enable::RICH_OVERLAPCHECK;
+  int verbosity = std::max(Enable::VERBOSITY, Enable::RICH_VERBOSITY);
 
-  double z = 185;
-  double dz = 0;
+  double z = 185;   //Start of dRICH
+  double dz = 100;  //Length of dRICH
 
-  dz = 20;
-  PHG4ConeSubsystem* coneAeroGel = new PHG4ConeSubsystem("dRICHconeAeroGel", 0);
-  coneAeroGel->SetR1(11, 110);
-  coneAeroGel->SetR2(11, 120);
-  coneAeroGel->SetZlength(dz * 0.5);
-  coneAeroGel->SetPlaceZ(z + dz * 0.5);
-  coneAeroGel->set_string_param("material", "ePHENIX_AeroGel");
-  coneAeroGel->set_color(0.5, 0.5, 0.8);
-  coneAeroGel->SetActive();
-  coneAeroGel->SuperDetector("RICH");
-  coneAeroGel->OverlapCheck(OverlapCheck);
-  g4Reco->registerSubsystem(coneAeroGel);
+  EICG4dRICHSubsystem *drichSubsys = new EICG4dRICHSubsystem("dRICh");
+  drichSubsys->SetGeometryFile(string(getenv("CALIBRATIONROOT")) + "/dRICH/mapping/drich-g4model_v3.txt");
+  drichSubsys->set_double_param("place_z", z + dz * 0.5);  // relative position to mother vol.
+  drichSubsys->OverlapCheck(OverlapCheck);
+  drichSubsys->Verbosity(verbosity);
+  drichSubsys->SetActive();
 
-  z += dz;
-  dz = 5;
-  PHG4ConeSubsystem* coneGas = new PHG4ConeSubsystem("dRICHconeGas", 1);
-  coneGas->SetR1(11, 120);
-  coneGas->SetR2(11, 170); // <- reduce from 210cm to avoid overlap with the HCal
-  coneGas->SetZlength(dz * 0.5);
-  coneGas->SetPlaceZ(z + dz * 0.5);
-  coneGas->set_string_param("material", "C4F10");
-  coneGas->set_color(0.5, 0.5, 0.5);
-  coneGas->SetActive();
-  coneGas->SuperDetector("RICH");
-  coneGas->OverlapCheck(OverlapCheck);
-  g4Reco->registerSubsystem(coneGas);
-
-  z += dz;
-  dz = 75;
-  coneGas = new PHG4ConeSubsystem("dRICHconeGas", 2);
-  coneGas->SetR1(11, 170);
-  coneGas->SetR2(15, 170);
-  coneGas->SetZlength(dz * 0.5);
-  coneGas->SetPlaceZ(z + dz * 0.5);
-  coneGas->set_string_param("material", "C4F10");
-  coneGas->set_color(0.5, 0.5, 0.5);
-  coneGas->SetActive();
-  coneGas->SuperDetector("RICH");
-  coneGas->OverlapCheck(OverlapCheck);
-  g4Reco->registerSubsystem(coneGas);
-
-  z += dz;
-
+  g4Reco->registerSubsystem(drichSubsys);
 
   if (TRACKING::FastKalmanFilter)
   {
     // project to an reference plane at z=170 cm
-    TRACKING::FastKalmanFilter-> add_zplane_state("RICH", 185);
+    TRACKING::FastKalmanFilter->add_zplane_state("RICH", 185);
     TRACKING::ProjectionNames.insert("RICH");
   }
-
 }
+
+void RICHReco()
+{
+  const int verbosity = std::max(Enable::VERBOSITY, Enable::RICH_VERBOSITY);
+  Fun4AllServer *se = Fun4AllServer::instance();
+
+  ECCEdRICHFastPIDMap *pidmap = new ECCEdRICHFastPIDMap();
+  pidmap->Verbosity(verbosity);
+  pidmap->dualRICH_aerogel();
+
+  ECCEFastPIDReco *reco = new ECCEFastPIDReco(pidmap, EICPIDDefs::dRICH_AeroGel, "ECCEFastPIDReco-dRICH_AeroGel");
+  reco->Verbosity(verbosity);
+
+  se->registerSubsystem(reco);
+
+  pidmap = new ECCEdRICHFastPIDMap();
+  pidmap->Verbosity(verbosity);
+  pidmap->dualRICH_C2F6();
+
+  reco = new ECCEFastPIDReco(pidmap, EICPIDDefs::dRICH_Gas, "ECCEFastPIDReco-dRICH_Gas");
+  reco->Verbosity(verbosity);
+
+  se->registerSubsystem(reco);
+}
+
 #endif
