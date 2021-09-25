@@ -292,15 +292,9 @@ int Fun4All_G4_EICDetector(
   G4TTL::SETTING::optionGeo = 1;
 
   Enable::TRACKING = true;
-<<<<<<< HEAD
-//  Enable::TRACKING_EVAL = Enable::TRACKING && true;
-  G4TRACKING::DISPLACED_VERTEX = false;  // this option exclude vertex in the track fitting and use RAVE to reconstruct primary and 2ndary vertexes
-                                         // projections to calorimeters
-=======
   Enable::TRACKING_EVAL = Enable::TRACKING && true;
   G4TRACKING::DISPLACED_VERTEX = true;  // this option exclude vertex in the track fitting and use RAVE to reconstruct primary and 2ndary vertexes
                                         // projections to calorimeters
->>>>>>> master
   G4TRACKING::PROJECTION_EEMC = true;
   G4TRACKING::PROJECTION_BECAL = true;
   G4TRACKING::PROJECTION_EHCAL = true;
@@ -310,20 +304,11 @@ int Fun4All_G4_EICDetector(
   G4TRACKING::PROJECTION_FHCAL = true;
   G4TRACKING::PROJECTION_LFHCAL = true;
 
-<<<<<<< HEAD
-  Enable::CEMC = true;
-  //  Enable::CEMC_ABSORBER = true;
-  Enable::CEMC_CELL = Enable::CEMC && true;
-  Enable::CEMC_TOWER = Enable::CEMC_CELL && true;
-  Enable::CEMC_CLUSTER = Enable::CEMC_TOWER && true;
-//  Enable::CEMC_EVAL = Enable::CEMC_CLUSTER && true;
-=======
   Enable::BECAL = true;
   Enable::BECAL_CELL = Enable::BECAL && true;
   Enable::BECAL_TOWER = Enable::BECAL_CELL && true;
   Enable::BECAL_CLUSTER = Enable::BECAL_TOWER && true;
   Enable::BECAL_EVAL = Enable::BECAL_CLUSTER && true;
->>>>>>> master
 
   Enable::HCALIN = true;
   //  Enable::HCALIN_ABSORBER = true;
@@ -362,19 +347,6 @@ int Fun4All_G4_EICDetector(
   Enable::FEMC_CLUSTER = Enable::FEMC_TOWER && true;
 //  Enable::FEMC_EVAL = Enable::FEMC_CLUSTER && true;
 
-<<<<<<< HEAD
-  Enable::FHCAL = true;
-  //  Enable::FHCAL_ABSORBER = true;
-  Enable::FHCAL_TOWER = Enable::FHCAL && true;
-  Enable::FHCAL_CLUSTER = Enable::FHCAL_TOWER && true;
-//  Enable::FHCAL_EVAL = Enable::FHCAL_CLUSTER && true;
-
-  // EICDetector geometry - 'electron' direction
-  Enable::EEMC = true;
-  Enable::EEMC_TOWER = Enable::EEMC && true;
-  Enable::EEMC_CLUSTER = Enable::EEMC_TOWER && true;
-//  Enable::EEMC_EVAL = Enable::EEMC_CLUSTER && true;
-=======
   //Enable::DRCALO = false;
   Enable::DRCALO_CELL = Enable::DRCALO && true;
   Enable::DRCALO_TOWER = Enable::DRCALO_CELL && true;
@@ -395,17 +367,12 @@ int Fun4All_G4_EICDetector(
   Enable::EEMCH_CLUSTER = Enable::EEMCH_TOWER && true;
   Enable::EEMCH_EVAL = Enable::EEMCH_CLUSTER && true;
   G4TTL::SETTING::optionEEMCH = Enable::EEMCH && true;
->>>>>>> master
 
   Enable::EHCAL = true;
   Enable::EHCAL_CELL = Enable::EHCAL && true;
   Enable::EHCAL_TOWER = Enable::EHCAL_CELL && true;
   Enable::EHCAL_CLUSTER = Enable::EHCAL_TOWER && true;
-<<<<<<< HEAD
-//  Enable::EHCAL_EVAL = Enable::EHCAL_CLUSTER && false;
-=======
   Enable::EHCAL_EVAL = Enable::EHCAL_CLUSTER && true;
->>>>>>> master
 
   Enable::FFR_EVAL = Enable::HFARFWD_MAGNETS && Enable::HFARFWD_VIRTUAL_DETECTORS && true;
 
