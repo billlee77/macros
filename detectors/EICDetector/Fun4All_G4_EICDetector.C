@@ -71,7 +71,7 @@ int Fun4All_G4_EICDetector(
   G4PIPE::use_forward_pipes = false;
   G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
 
-  Enable::HFARFWD_ION_ENERGY = 249;
+  Enable::HFARFWD_ION_ENERGY = 275;
   // Enable::HFARFWD_ION_ENERGY=275;
 
   // The following this the special steering requested by Mark to steer 
