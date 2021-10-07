@@ -79,7 +79,7 @@ int Fun4All_G4_EICDetector(
   // IF you are not Mark or Jackson, then you should not use this energy setting
   // Enable::HFARFWD_ION_ENERGY=275*110/108.4  
   // Energy choice: 41, 62, 82, 100, 165, 220, 275;
-  Enable::HFARFWD_ION_ENERGY = 135;
+  Enable::HFARFWD_ION_ENERGY = 165;
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
