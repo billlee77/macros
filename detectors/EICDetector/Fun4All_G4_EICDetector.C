@@ -71,7 +71,7 @@ int Fun4All_G4_EICDetector(
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
   // Energy choice: 41, 62, 82, 100, 135, 150, 165, 220, 249, 275
-  Enable::HFARFWD_ION_ENERGY = 41;
+  Enable::HFARFWD_ION_ENERGY = 275;
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
@@ -419,7 +419,7 @@ int Fun4All_G4_EICDetector(
 
   //  const string magfield = "1.5"; // alternatively to specify a constant magnetic field, give a float number, which will be translated to solenoidal field in T, if string use as fieldmap name (including path)
   //  G4MAGNET::magfield = string(getenv("CALIBRATIONROOT")) + string("/Field/Map/sPHENIX.2d.root");  // default map from the calibration database
-  G4MAGNET::magfield_rescale = -3.0 / 1.5;  // make consistent with expected Babar field strength of 1.4T
+  G4MAGNET::magfield_rescale = -1.4 / 1.5;  // make consistent with expected Babar field strength of 1.4T
 
   //---------------
   // Pythia Decayer
