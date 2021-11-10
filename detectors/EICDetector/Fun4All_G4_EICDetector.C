@@ -69,6 +69,10 @@ int Fun4All_G4_EICDetector(
   Enable::IP6 = true;
   // Enable::IP8 = true;
 
+  G4PIPE::use_forward_pipes = false;
+//  G4PIPE::Material = false;
+  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC 
+
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
   // Energy choice: 41, 62, 82, 100, 135, 150, 165, 220, 249, 275
   Enable::HFARFWD_ION_ENERGY = 275;
@@ -265,7 +269,7 @@ int Fun4All_G4_EICDetector(
   // whether to simulate the Be section of the beam pipe
   Enable::PIPE = true;
   // If need to disable EIC beam pipe extension beyond the Be-section:
-  G4PIPE::use_forward_pipes = true;
+  //G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
   Enable::HFARFWD_MAGNETS = true;
   Enable::HFARFWD_VIRTUAL_DETECTORS = true;
