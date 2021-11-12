@@ -67,7 +67,13 @@ int Fun4All_G4_EICDetector(
   // switching IPs by comment/uncommenting the following lines
   // used for both beamline setting and for the event generator crossing boost
   Enable::IP6 = true;
-  // Enable::IP8 = true;
+//  Enable::IP8 = true;
+//  G4PIPE::use_forward_pipes = false;
+////  G4PIPE::Material = false;
+//  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC 
+
+
+
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
   Enable::HFARFWD_ION_ENERGY = 275;
@@ -102,7 +108,7 @@ int Fun4All_G4_EICDetector(
   //   Input::SARTRE = true;
 
   // Simple multi particle generator in eta/phi/pt ranges
-  Input::SIMPLE = true;
+  // Input::SIMPLE = true;
   // Input::SIMPLE_NUMBER = 2; // if you need 2 of them
   // Input::SIMPLE_VERBOSITY = 1;
 
@@ -119,7 +125,7 @@ int Fun4All_G4_EICDetector(
   // And/Or read generated particles from file
 
   // eic-smear output
-  // Input::READEIC = true;
+  Input::READEIC = true;
   INPUTREADEIC::filename = inputFile;
 
   // HepMC2 files
@@ -264,7 +270,7 @@ int Fun4All_G4_EICDetector(
   // whether to simulate the Be section of the beam pipe
   Enable::PIPE = true;
   // If need to disable EIC beam pipe extension beyond the Be-section:
-  G4PIPE::use_forward_pipes = true;
+  // G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
   Enable::HFARFWD_MAGNETS = true;
   Enable::HFARFWD_VIRTUAL_DETECTORS = true;
@@ -567,33 +573,33 @@ int Fun4All_G4_EICDetector(
 
   if (Enable::DSTREADER) G4DSTreader_EICDetector(outputroot + "_DSTReader.root");
 
-  //----------------------
-  // Simulation evaluation
-  //----------------------
-
-  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
-
-  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
-
-  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
-
-  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
-
-  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
-
-  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
-
-  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
-
-  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
-
-  if (Enable::FFR_EVAL) FFR_Eval(outputroot + "_g4ffr_eval.root");
-
-  if (Enable::B0ECAL_EVAL) B0ECAL_Eval(outputroot + "_g4b0ecal_eval_test.root"); // For B0Ecal
-    
-  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
-
-  if (Enable::USER) UserAnalysisInit();
+//  //----------------------
+//  // Simulation evaluation
+//  //----------------------
+//
+//  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
+//
+//  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
+//
+//  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
+//
+//  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
+//
+//  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
+//
+//  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
+//
+//  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
+//
+//  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
+//
+//  if (Enable::FFR_EVAL) FFR_Eval(outputroot + "_g4ffr_eval.root");
+//
+//  if (Enable::B0ECAL_EVAL) B0ECAL_Eval(outputroot + "_g4b0ecal_eval_test.root"); // For B0Ecal
+//    
+//  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
+//
+//  if (Enable::USER) UserAnalysisInit();
 
   //--------------
   // Set up Input Managers
