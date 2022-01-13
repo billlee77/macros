@@ -25,10 +25,21 @@
 R__LOAD_LIBRARY(libfun4all.so)
 
 int Fun4All_G4_EICDetector(
-    const int nEvents = 1,
-    const string &inputFile = "https://www.phenix.bnl.gov/WWW/publish/phnxbld/sPHENIX/files/sPHENIX_G4Hits_sHijing_9-11fm_00000_00010.root",
+//    const int nEvents = 1,
+    const int nEvents = 30000,
+//    const string &inputFile = "https://www.phenix.bnl.gov/WWW/publish/phnxbld/sPHENIX/files/sPHENIX_G4Hits_sHijing_9-11fm_00000_00010.root",
+
+//    const string &inputFile = "/home/fun4all/Desktop/eZr_18x122.22_tune3_tau10_B1.1_extracted_Je_1.root",
+
+//    const string &inputFile = "/home/fun4all/Desktop/Gun_1M_18_275.hempc",
+    const string &inputFile = "/home/fun4all/Desktop/twopi_18_275.root",
+//    const string &inputFile = "/home/fun4all/Desktop/Beam_particle_org",
+
     const string &outputFile = "G4EICDetector.root",
     const string &embed_input_file = "https://www.phenix.bnl.gov/WWW/publish/phnxbld/sPHENIX/files/sPHENIX_G4Hits_sHijing_9-11fm_00000_00010.root",
+
+//    const string &embed_input_file = "/home/fun4all/Desktop/Gun_1M_18_275.hempc",
+
     const int skip = 0,
     const string &outdir = ".")
 {
@@ -48,7 +59,7 @@ int Fun4All_G4_EICDetector(
   // which will produce identical results so you can debug your code
   // rc->set_IntFlag("RANDOMSEED", 12345);
 
-  bool generate_seed = true;
+  bool generate_seed = false;
 
   if (generate_seed)
   {
@@ -67,13 +78,15 @@ int Fun4All_G4_EICDetector(
   // switching IPs by comment/uncommenting the following lines
   // used for both beamline setting and for the event generator crossing boost
   Enable::IP6 = true;
-  // Enable::IP8 = true;
+  //Enable::IP8 = true;
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
   Enable::HFARFWD_ION_ENERGY = 275;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
   Enable::HFARBWD_E_ENERGY = 18;
+
+  // G4PIPE::use_forward_pipes = false;
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
@@ -105,7 +118,7 @@ int Fun4All_G4_EICDetector(
   //   Input::SARTRE = true;
 
   // Simple multi particle generator in eta/phi/pt ranges
-  //Input::SIMPLE = true;
+//  Input::SIMPLE = true;
   // Input::SIMPLE_NUMBER = 2; // if you need 2 of them
   // Input::SIMPLE_VERBOSITY = 1;
 
@@ -123,10 +136,11 @@ int Fun4All_G4_EICDetector(
 
   // eic-smear output
   Input::READEIC = true;
+  // Input::READEIC = false;
   INPUTREADEIC::filename = inputFile;
 
   // HepMC2 files
-  //  Input::HEPMC = true;
+  // Input::HEPMC = true;
   Input::VERBOSITY = 0;
   INPUTHEPMC::filename = inputFile;
 
@@ -158,9 +172,14 @@ int Fun4All_G4_EICDetector(
       INPUTGENERATOR::SimpleEventGenerator[0]->set_vertex_distribution_mean(0., 0., 0.);
       INPUTGENERATOR::SimpleEventGenerator[0]->set_vertex_distribution_width(0., 0., 5.);
     }
-    INPUTGENERATOR::SimpleEventGenerator[0]->set_eta_range(-4, 4);
+//    INPUTGENERATOR::SimpleEventGenerator[0]->set_eta_range(-3, 3);
+//    INPUTGENERATOR::SimpleEventGenerator[0]->set_phi_range(-M_PI, M_PI);
+//    INPUTGENERATOR::SimpleEventGenerator[0]->set_pt_range(0.1, 20.);
+
+    INPUTGENERATOR::SimpleEventGenerator[0]->set_eta_range(-10.1,-10);
+//    INPUTGENERATOR::SimpleEventGenerator[0]->set_phi_range(-0.1,0.1);
     INPUTGENERATOR::SimpleEventGenerator[0]->set_phi_range(-M_PI, M_PI);
-    INPUTGENERATOR::SimpleEventGenerator[0]->set_pt_range(0.1, 20.);
+    INPUTGENERATOR::SimpleEventGenerator[0]->set_pt_range(18., 18.1);
   }
   // Upsilons
   // if you run more than one of these Input::UPSILON_NUMBER > 1
@@ -183,7 +202,9 @@ int Fun4All_G4_EICDetector(
   // add the settings for other with [1], next with [2]...
   if (Input::GUN)
   {
-    INPUTGENERATOR::Gun[0]->AddParticle("pi-", 0, 1, 0);
+//    INPUTGENERATOR::Gun[0]->AddParticle("pi-", 0, 1, 0);
+//    INPUTGENERATOR::Gun[0]->AddParticle("proton", -275.0*sin(0.025), 0,  275.0*cos(0.025));
+    INPUTGENERATOR::Gun[0]->AddParticle("e-", 0, 0,  -14.0);
     INPUTGENERATOR::Gun[0]->set_vtx(0, 0, 0);
   }
   // pythia6
@@ -254,7 +275,9 @@ int Fun4All_G4_EICDetector(
   // Enable::DSTREADER = true;
 
   // turn the display on (default off)
-  //  Enable::DISPLAY = true;
+
+  Enable::DISPLAY = false;
+//  Enable::DISPLAY = true;
 
   //======================
   // What to run
@@ -269,6 +292,7 @@ int Fun4All_G4_EICDetector(
   // If need to disable EIC beam pipe extension beyond the Be-section:
   G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
+
   Enable::HFARFWD_MAGNETS = true;
   Enable::HFARFWD_VIRTUAL_DETECTORS = true;
 
@@ -300,7 +324,7 @@ int Fun4All_G4_EICDetector(
   Enable::HTOF_GAS = Enable::HTOF && true;
 
   Enable::TRACKING = true;
-  Enable::TRACKING_EVAL = Enable::TRACKING && false;
+  Enable::TRACKING_EVAL = Enable::TRACKING && true;
   G4TRACKING::DISPLACED_VERTEX = true;  // this option exclude vertex in the track fitting and use RAVE to reconstruct primary and 2ndary vertexes
                                         // projections to calorimeters
   G4TRACKING::PROJECTION_EEMC = true;
@@ -351,7 +375,7 @@ int Fun4All_G4_EICDetector(
   G4TTL::SETTING::optionEEMCH           = Enable::EEMCH && true;
   Enable::EHCAL   = false;
 
-  Enable::FFR_EVAL = Enable::HFARFWD_MAGNETS && Enable::HFARFWD_VIRTUAL_DETECTORS && false;
+  Enable::FFR_EVAL = Enable::HFARFWD_MAGNETS && Enable::HFARFWD_VIRTUAL_DETECTORS && true;
 
   Enable::PLUGDOOR = false;
 
@@ -392,32 +416,33 @@ int Fun4All_G4_EICDetector(
   // Enable::B0ECAL_EVAL = Enable::B0ECAL_CLUSTER && true;
     
   // RP
-  // Enable::RP_DISABLE_HITPLANE = true;
-  
+  // Enable::RP_DISABLE_HITPLANE = true;  
+  Enable::RP_FULLHITPLANE= true;
+
   //************************************************************
   // details for calos: cells, towers, clusters
   //************************************************************
   Enable::BECAL_CELL    = Enable::BECAL && true;
   Enable::BECAL_TOWER   = Enable::BECAL_CELL && true;
   Enable::BECAL_CLUSTER = Enable::BECAL_TOWER && true;
-  Enable::BECAL_EVAL    = Enable::BECAL_CLUSTER && false;
+  Enable::BECAL_EVAL    = Enable::BECAL_CLUSTER && true;
 
   //  Enable::HCALIN_ABSORBER = true;
   Enable::HCALIN_CELL     = Enable::HCALIN && true;
   Enable::HCALIN_TOWER    = Enable::HCALIN_CELL && true;
   Enable::HCALIN_CLUSTER  = Enable::HCALIN_TOWER && true;
-  Enable::HCALIN_EVAL     = Enable::HCALIN_CLUSTER && false;
+  Enable::HCALIN_EVAL     = Enable::HCALIN_CLUSTER && true;
 
   //  Enable::HCALOUT_ABSORBER = true;
   Enable::HCALOUT_CELL    = Enable::HCALOUT && true;
   Enable::HCALOUT_TOWER   = Enable::HCALOUT_CELL && true;
   Enable::HCALOUT_CLUSTER = Enable::HCALOUT_TOWER && true;
-  Enable::HCALOUT_EVAL    = Enable::HCALOUT_CLUSTER && false;
+  Enable::HCALOUT_EVAL    = Enable::HCALOUT_CLUSTER && true;
   
   //  Enable::FEMC_ABSORBER = true;
   Enable::FEMC_TOWER      = Enable::FEMC && true;
   Enable::FEMC_CLUSTER    = Enable::FEMC_TOWER && true;
-  Enable::FEMC_EVAL       = Enable::FEMC_CLUSTER && false;
+  Enable::FEMC_EVAL       = Enable::FEMC_CLUSTER && true;
   
   Enable::DRCALO_CELL     = Enable::DRCALO && true;
   Enable::DRCALO_TOWER    = Enable::DRCALO_CELL && true;
@@ -428,19 +453,19 @@ int Fun4All_G4_EICDetector(
   Enable::LFHCAL_CELL     = Enable::LFHCAL && true;
   Enable::LFHCAL_TOWER    = Enable::LFHCAL_CELL && true;
   Enable::LFHCAL_CLUSTER  = Enable::LFHCAL_TOWER && true;
-  Enable::LFHCAL_EVAL     = Enable::LFHCAL_CLUSTER && false;
+  Enable::LFHCAL_EVAL     = Enable::LFHCAL_CLUSTER && true;
 
   Enable::EEMCH_TOWER     = Enable::EEMCH && true;
   Enable::EEMCH_CLUSTER   = Enable::EEMCH_TOWER && true;
-  Enable::EEMCH_EVAL      = Enable::EEMCH_CLUSTER && false;
+  Enable::EEMCH_EVAL      = Enable::EEMCH_CLUSTER && true;
 
   Enable::EHCAL_CELL      = Enable::EHCAL && true;
   Enable::EHCAL_TOWER     = Enable::EHCAL_CELL && true;
   Enable::EHCAL_CLUSTER   = Enable::EHCAL_TOWER && true;
-  Enable::EHCAL_EVAL      = Enable::EHCAL_CLUSTER && false;
+  Enable::EHCAL_EVAL      = Enable::EHCAL_CLUSTER && true;
   
   // Enabling the event evaluator?
-  Enable::EVENT_EVAL            = false;
+  Enable::EVENT_EVAL            = true;
   Enable::EVENT_EVAL_DO_HITS    = true;
   Enable::EVENT_EVAL_DO_HEPMC   = Input::PYTHIA6 or Input::PYTHIA8 or Input::SARTRE or Input::HEPMC or Input::READEIC;
   Enable::EVENT_EVAL_DO_EVT_LVL = Input::PYTHIA6 or Input::PYTHIA8 or Input::READEIC;
@@ -553,62 +578,61 @@ int Fun4All_G4_EICDetector(
 
   if (Enable::RICH_RECO) RICHReco();
 
-  //-----------------
-  // Global Vertexing
-  //-----------------
+//  //-----------------
+//  // Global Vertexing
+//  //-----------------
+//
+//  if (Enable::GLOBAL_RECO)
+//  {
+//    Global_Reco();
+//  }
+//  else if (Enable::GLOBAL_FASTSIM)
+//  {
+//    Global_FastSim();
 
-  if (Enable::GLOBAL_RECO)
-  {
-    Global_Reco();
-  }
-  else if (Enable::GLOBAL_FASTSIM)
-  {
-    Global_FastSim();
-  }
-
-  //---------
-  // Jet reco
-  //---------
-
-  if (Enable::FWDJETS) Jet_FwdReco();
-
-  string outputroot = outputFile;
-  string remove_this = ".root";
-  size_t pos = outputroot.find(remove_this);
-  if (pos != string::npos)
-  {
-    outputroot.erase(pos, remove_this.length());
-  }
-
-  if (Enable::DSTREADER) G4DSTreader_EICDetector(outputroot + "_DSTReader.root");
-
-  //----------------------
-  // Simulation evaluation
-  //----------------------
-
-  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
-
-  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
-
-  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
-
-  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
-
-  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
-
-  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
-
-  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
-
-  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
-
-  if (Enable::FFR_EVAL) FFR_Eval(outputroot + "_g4ffr_eval.root");
-
-  if (Enable::B0ECAL_EVAL) B0ECAL_Eval(outputroot + "_g4b0ecal_eval_test.root"); // For B0Ecal
-    
-  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
-
-  if (Enable::USER) UserAnalysisInit();
+//  //---------
+//  // Jet reco
+//  //---------
+//
+//  if (Enable::FWDJETS) Jet_FwdReco();
+//
+//  string outputroot = outputFile;
+//  string remove_this = ".root";
+//  size_t pos = outputroot.find(remove_this);
+//  if (pos != string::npos)
+//  {
+//    outputroot.erase(pos, remove_this.length());
+//  }
+//
+//  if (Enable::DSTREADER) G4DSTreader_EICDetector(outputroot + "_DSTReader.root");
+//
+//  //----------------------
+//  // Simulation evaluation
+//  //----------------------
+//
+//  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
+//
+//  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
+//
+//  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
+//
+//  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
+//
+//  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
+//
+//  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
+//
+//  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
+//
+//  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
+//
+//  if (Enable::FFR_EVAL) FFR_Eval(outputroot + "_g4ffr_eval.root");
+//
+//  if (Enable::B0ECAL_EVAL) B0ECAL_Eval(outputroot + "_g4b0ecal_eval_test.root"); // For B0Ecal
+//    
+//  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
+//
+//  if (Enable::USER) UserAnalysisInit();
 
   //--------------
   // Set up Input Managers
