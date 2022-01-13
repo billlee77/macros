@@ -38,6 +38,7 @@ namespace Enable
 
   float HFARBWD_E_ENERGY = 0;
 
+
 }  // namespace Enable
 
 namespace hFarBwdBeamLine
@@ -126,10 +127,11 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
     gSystem->Exit(1);
   }
 
+//  gSystem->Exit(1);
+
   // make magnet active volume if you want to study the hits
 //  bool magnet_active = false;
   bool magnet_active = true;
-
   int absorberactive = 0;
 
   // if you insert numbers it only displays those magnets, do not comment out the set declaration
@@ -143,12 +145,22 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
     double biggest_z = 0.;
     int imagnet = 0;
     std::string line;
+
+	
+    cout << ":::::::::::::::::::" << endl;
+
+
     while (std::getline(infile, line))
     {
+
+    cout << "11 :::::::::::::::::::" << endl;
+
       if (!line.compare(0, 3, "eDB") ||
           !line.compare(0, 2, "eQ") ||
           !line.compare(0, 2, "eS"))
       {
+       cout << "22 :::::::::::::::::::" << endl;
+       cout << line << endl;
         std::istringstream iss(line);
         string magname;
         double x;
@@ -168,10 +180,19 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
         }
         else
         {
+         cout << "33 :::::::::::::::::::" << endl;
 	  //------------------------
 	  //Select only the magnet component in the far backward region
 	  if (z > 0.0)
 		continue;
+
+          cout << "44 :::::::::::::::::::" << endl;
+
+	  cout<< "--------------------------------" << endl;
+	  cout << "Magnet Start: " << endl; 
+	  cout << "Magnet Start: " << endl; 
+	  cout << "Magnet Start: " << endl; 
+	  cout << "Magnet Start: " << endl; 
 
           string magtype;
           if (inner_radius_zin != inner_radius_zout)
@@ -181,8 +202,8 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
                  << " needs change in code (replace tube by cone for beamline)" << endl;
             gSystem->Exit(1);
           }
-          if (verbosity > 0)
-          {
+//          if (verbosity > 0)
+//          {
             cout << endl
                  << endl
                  << "\tID number " << imagnet << endl;
@@ -197,7 +218,7 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
             cout << "angle: " << angle << endl;
             cout << "dipole_field_x: " << dipole_field_x << endl;
             cout << "fieldgradient: " << fieldgradient << endl;
-          }
+//          }
           if (!magname.compare(0, 3, "eDB"))
           {
             magtype = "DIPOLE";
@@ -226,9 +247,9 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
 
 	  //------------------------
 	  // Linearly scaling down the magnetic field for lower energy proton
-	  if( Enable::HFARBWD_E_ENERGY != 18 ) {
-             float scaleFactor = Enable::HFARBWD_E_ENERGY / 18. ;
-	     dipole_field_x = dipole_field_x*scaleFactor;
+	  if( Enable::HFARBWD_E_ENERGY != 10 ) {
+             float scaleFactor = Enable::HFARBWD_E_ENERGY / 10. ;
+	     dipole_field_x = dipole_field_x * scaleFactor;
 	     fieldgradient = fieldgradient * scaleFactor;
    	  }
 
@@ -275,6 +296,12 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
         }
       }
     }
+
+
+    cout << "AAAA" << endl;
+
+ //   gSystem->Exit(1);
+
     infile.close();
   }
 
@@ -282,7 +309,6 @@ void hFarBwdDefineMagnets(PHG4Reco *g4Reco)
 
 void hFarBwdDefineDetectorsIP6(PHG4Reco *g4Reco)
 {
-
 //  bool overlapCheck = Enable::OVERLAPCHECK || Enable::HFARBWD_OVERLAPCHECK;
 //  if (Enable::HFARBWD_VIRTUAL_DETECTORS_IP6 && Enable::HFARBWD_VIRTUAL_DETECTORS_IP8)
 //  {
@@ -316,6 +342,9 @@ void hFarBwdDefineDetectorsIP6(PHG4Reco *g4Reco)
 //    g4Reco->registerSubsystem(detBackward);
 //
 ////  int verbosity = std::max(Enable::VERBOSITY, Enable::HFARFWD_VERBOSITY);
+
+
+
 
   // **********************************************
   // Luminosity monitor
@@ -407,6 +436,13 @@ void hFarBwdDefineDetectorsIP6(PHG4Reco *g4Reco)
    detLowQ2Tag_2->BlackHole();
    if (verbosity) detLowQ2Tag_2->Verbosity(verbosity);
    g4Reco->registerSubsystem(detLowQ2Tag_2);
+
+
+
+
+
+
+
 
 //  int verbosity = std::max(Enable::VERBOSITY, Enable::HFARFWD_VERBOSITY);
 
