@@ -81,10 +81,10 @@ int Fun4All_G4_EICDetector(
   //Enable::IP8 = true;
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
-  Enable::HFARFWD_ION_ENERGY = 275;
+  Enable::HFARFWD_ION_ENERGY = 100;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
-  Enable::HFARBWD_E_ENERGY = 18;
+  Enable::HFARBWD_E_ENERGY = 5;
 
   // G4PIPE::use_forward_pipes = false;
 
