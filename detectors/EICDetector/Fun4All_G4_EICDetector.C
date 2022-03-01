@@ -48,7 +48,7 @@ int Fun4All_G4_EICDetector(
   // which will produce identical results so you can debug your code
   // rc->set_IntFlag("RANDOMSEED", 12345);
 
-  bool generate_seed = false;
+  bool generate_seed = true;
 
   if (generate_seed)
   {
@@ -129,7 +129,7 @@ int Fun4All_G4_EICDetector(
   //   Input::SARTRE = true;
 
   // Simple multi particle generator in eta/phi/pt ranges
-  Input::SIMPLE = true;
+  // Input::SIMPLE = true;
   // Input::SIMPLE_NUMBER = 2; // if you need 2 of them
   // Input::SIMPLE_VERBOSITY = 1;
 
@@ -149,7 +149,7 @@ int Fun4All_G4_EICDetector(
   // And/Or read generated particles from file
 
   // eic-smear output
-  // Input::READEIC = true;
+  Input::READEIC = true;
   INPUTREADEIC::filename = inputFile;
 
   // HepMC2 files
@@ -286,7 +286,7 @@ int Fun4All_G4_EICDetector(
   // Write the DST
   //======================
 
-  // Enable::DSTOUT = true;
+  Enable::DSTOUT = true;
   DstOut::OutputDir = outdir;
   DstOut::OutputFile = outputFile;
   Enable::DSTOUT_COMPRESS = true;  // Compress DST files
@@ -637,37 +637,37 @@ int Fun4All_G4_EICDetector(
     outputroot.erase(pos, remove_this.length());
   }
 
-  if (Enable::DSTREADER) G4DSTreader_EICDetector(outputroot + "_DSTReader.root");
-
-  //----------------------
-  // Simulation evaluation
-  //----------------------
-
-  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
-
-  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
-
-  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
-
-  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
-
-  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
-
-  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
-
-  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
-
-  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
-
-  if (Enable::FFR_EVAL) FFR_Eval(outputroot + "_g4ffr_eval.root");
-
-  if (Enable::B0ECAL_EVAL) B0ECAL_Eval(outputroot + "_g4b0ecal_eval_test.root"); // For B0Ecal
-    
-  if (Enable::BWD_EVAL) BWD_Eval(outputroot + "_g4bwd_eval_e0100_debug"); // For Bwd
-    
-  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
-
-  if (Enable::USER) UserAnalysisInit();
+//  if (Enable::DSTREADER) G4DSTreader_EICDetector(outputroot + "_DSTReader.root");
+//
+//  //----------------------
+//  // Simulation evaluation
+//  //----------------------
+//
+//  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
+//
+//  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
+//
+//  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
+//
+//  if (Enable::HCALIN_EVAL) HCALInner_Eval(outputroot + "_g4hcalin_eval.root");
+//
+//  if (Enable::HCALOUT_EVAL) HCALOuter_Eval(outputroot + "_g4hcalout_eval.root");
+//
+//  if (Enable::FEMC_EVAL) FEMC_Eval(outputroot + "_g4femc_eval.root");
+//
+//  if (Enable::FHCAL_EVAL) FHCAL_Eval(outputroot + "_g4fhcal_eval.root");
+//
+//  if (Enable::EEMC_EVAL) EEMC_Eval(outputroot + "_g4eemc_eval.root");
+//
+//  if (Enable::FFR_EVAL) FFR_Eval(outputroot + "_g4ffr_eval.root");
+//
+//  if (Enable::B0ECAL_EVAL) B0ECAL_Eval(outputroot + "_g4b0ecal_eval_test.root"); // For B0Ecal
+//    
+//  if (Enable::BWD_EVAL) BWD_Eval(outputroot + "_g4bwd_eval_e0100_debug"); // For Bwd
+//    
+//  if (Enable::FWDJETS_EVAL) Jet_FwdEval();
+//
+//  if (Enable::USER) UserAnalysisInit();
 
   //--------------
   // Set up Input Managers
