@@ -92,7 +92,6 @@ int Fun4All_G4_EICDetector(
   // Option 1: ep-high-acceptance
   // Option 2: ep-high-divergence
   // Option 3: eA
-
   //
   // If you don't know what to put here, set it to ep-high-divergence   
   //
