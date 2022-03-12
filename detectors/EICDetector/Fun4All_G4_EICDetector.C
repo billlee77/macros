@@ -85,7 +85,7 @@ int Fun4All_G4_EICDetector(
   Enable::HFARFWD_ION_ENERGY = 100;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
-  Enable::HFARBWD_E_ENERGY = 10;
+  Enable::HFARBWD_E_ENERGY = 5;
 
   // Beam Scattering configuration setting specified by CDR
   //
@@ -95,8 +95,8 @@ int Fun4All_G4_EICDetector(
   //
   // If you don't know what to put here, set it to ep-high-divergence   
   //
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
-  Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
   // Enable::BEAM_COLLISION_SETTING = "eA";
 
   // Either:
