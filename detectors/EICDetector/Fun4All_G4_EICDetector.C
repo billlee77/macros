@@ -66,8 +66,8 @@ int Fun4All_G4_EICDetector(
 
   // switching IPs by comment/uncommenting the following lines
   // used for both beamline setting and for the event generator crossing boost
-  // Enable::IP6 = true;
-  Enable::IP8 = true;
+  Enable::IP6 = true;
+  //Enable::IP8 = true;
 
    
   //===============
@@ -306,9 +306,9 @@ int Fun4All_G4_EICDetector(
   //  Enable::VERBOSITY = 1;
 
   // whether to simulate the Be section of the beam pipe
-  // Enable::PIPE = true;
+  Enable::PIPE = true;
   // If need to disable EIC beam pipe extension beyond the Be-section:
-  // G4PIPE::use_forward_pipes = true;
+  G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
   Enable::HFARFWD_MAGNETS = true;
   Enable::HFARFWD_VIRTUAL_DETECTORS = true;
@@ -505,7 +505,7 @@ int Fun4All_G4_EICDetector(
   //---------------
   //  G4WORLD::PhysicsList = "FTFP_BERT"; //FTFP_BERT_HP best for calo
   //  G4WORLD::WorldMaterial = "G4_AIR"; // set to G4_GALACTIC for material scans
-  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
+  //  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
 
   //---------------
   // Magnet Settings
