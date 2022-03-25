@@ -66,8 +66,8 @@ int Fun4All_G4_EICDetector(
 
   // switching IPs by comment/uncommenting the following lines
   // used for both beamline setting and for the event generator crossing boost
-  Enable::IP6 = true;
-  //Enable::IP8 = true;
+  // Enable::IP6 = true;
+  Enable::IP8 = true;
 
    
   //===============
@@ -82,10 +82,10 @@ int Fun4All_G4_EICDetector(
   // Option: 110x18, 110x10, 110x5, 41x5
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
-  Enable::HFARFWD_ION_ENERGY = 100;
+  Enable::HFARFWD_ION_ENERGY = 275;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
-  Enable::HFARBWD_E_ENERGY = 5;
+  Enable::HFARBWD_E_ENERGY = 18;
 
   // Beam Scattering configuration setting specified by CDR
   //
@@ -95,8 +95,8 @@ int Fun4All_G4_EICDetector(
   //
   // If you don't know what to put here, set it to ep-high-divergence   
   //
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
-  Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
   // Enable::BEAM_COLLISION_SETTING = "eA";
 
   // Either:
@@ -306,9 +306,9 @@ int Fun4All_G4_EICDetector(
   //  Enable::VERBOSITY = 1;
 
   // whether to simulate the Be section of the beam pipe
-  Enable::PIPE = true;
+  // Enable::PIPE = true;
   // If need to disable EIC beam pipe extension beyond the Be-section:
-  G4PIPE::use_forward_pipes = true;
+  // G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
   Enable::HFARFWD_MAGNETS = true;
   Enable::HFARFWD_VIRTUAL_DETECTORS = true;
@@ -505,7 +505,7 @@ int Fun4All_G4_EICDetector(
   //---------------
   //  G4WORLD::PhysicsList = "FTFP_BERT"; //FTFP_BERT_HP best for calo
   //  G4WORLD::WorldMaterial = "G4_AIR"; // set to G4_GALACTIC for material scans
-  //  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
+  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
 
   //---------------
   // Magnet Settings
