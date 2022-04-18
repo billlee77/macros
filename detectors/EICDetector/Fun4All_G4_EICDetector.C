@@ -97,7 +97,7 @@ int Fun4All_G4_EICDetector(
   //
   // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
-  Enable::BEAM_COLLISION_SETTING = "eA" ;
+  Enable::BEAM_COLLISION_SETTING = "eA";
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
