@@ -82,10 +82,10 @@ int Fun4All_G4_EICDetector(
   // Option: 110x18, 110x10, 110x5, 41x5
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
-  Enable::HFARFWD_ION_ENERGY = 275;
+  Enable::HFARFWD_ION_ENERGY = 41;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
-  Enable::HFARBWD_E_ENERGY = 18;
+  Enable::HFARBWD_E_ENERGY = 5;
 
   // Beam Scattering configuration setting specified by CDR
   //
@@ -95,9 +95,9 @@ int Fun4All_G4_EICDetector(
   //
   // If you don't know what to put here, set it to ep-high-divergence   
   //
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
-  Enable::BEAM_COLLISION_SETTING = "eA";
+  // Enable::BEAM_COLLISION_SETTING = "eA";
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
@@ -623,20 +623,20 @@ int Fun4All_G4_EICDetector(
     Global_FastSim();
   }
 
-  //---------
-  // Jet reco
-  //---------
-
-  if (Enable::FWDJETS) Jet_FwdReco();
-
-  string outputroot = outputFile;
-  string remove_this = ".root";
-  size_t pos = outputroot.find(remove_this);
-  if (pos != string::npos)
-  {
-    outputroot.erase(pos, remove_this.length());
-  }
-
+//  //---------
+//  // Jet reco
+//  //---------
+//
+//  if (Enable::FWDJETS) Jet_FwdReco();
+//
+//  string outputroot = outputFile;
+//  string remove_this = ".root";
+//  size_t pos = outputroot.find(remove_this);
+//  if (pos != string::npos)
+//  {
+//    outputroot.erase(pos, remove_this.length());
+//  }
+//
 //  if (Enable::DSTREADER) G4DSTreader_EICDetector(outputroot + "_DSTReader.root");
 //
 //  //----------------------
