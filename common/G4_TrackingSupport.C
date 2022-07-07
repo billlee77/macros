@@ -254,6 +254,8 @@ double TrackingService(PHG4Reco *g4Reco, double radius)
   double PlasticThickness = 0.48;    // 0.241488 cms
   double CarbonThickness = shellX0;  // 0.3 cms
 
+  double X_X0_percent = 0.1; // % X0
+
   // Cone service from the end Disk to the uRwell1 radius
   cones.push_back(new ServiceProperties("ETrackingCone_Disk4TouRwell", CuThickness, AlThickness, WaterThickness, PlasticThickness, CarbonThickness, 0, -147.47, -90, 68, 41.5));
 
