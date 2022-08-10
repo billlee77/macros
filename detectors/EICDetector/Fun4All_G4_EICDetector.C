@@ -96,8 +96,8 @@ int Fun4All_G4_EICDetector(
   // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // If you don't know what to put here, set it to ep-high-divergence   
   //
-  Enable::BEAM_COLLISION_SETTING = "eA";
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  // Enable::BEAM_COLLISION_SETTING = "eA";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
 
   // Either:
@@ -277,7 +277,7 @@ int Fun4All_G4_EICDetector(
   {
     //! apply EIC beam parameter following EIC CDR
     INPUTGENERATOR::EICFileReader->SetFirstEntry(skip);
-    Input::ApplyEICBeamParameter(INPUTGENERATOR::EICFileReader);
+//    Input::ApplyEICBeamParameter(INPUTGENERATOR::EICFileReader);
   }
 
   // set up production relatedstuff
