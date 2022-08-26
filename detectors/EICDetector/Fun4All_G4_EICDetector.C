@@ -644,8 +644,8 @@ int Fun4All_G4_EICDetector(
   // Simulation evaluation
   //----------------------
 
-//  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
-//
+  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
+
 //  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
 //
 //  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
