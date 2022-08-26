@@ -628,7 +628,7 @@ int Fun4All_G4_EICDetector(
   // Jet reco
   //---------
 
-  if (Enable::FWDJETS) Jet_FwdReco();
+//  if (Enable::FWDJETS) Jet_FwdReco();
 
   string outputroot = outputFile;
   string remove_this = ".root";
