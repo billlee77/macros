@@ -277,7 +277,7 @@ int Fun4All_G4_EICDetector(
   {
     //! apply EIC beam parameter following EIC CDR
     INPUTGENERATOR::EICFileReader->SetFirstEntry(skip);
-    Input::ApplyEICBeamParameter(INPUTGENERATOR::EICFileReader);
+    // Input::ApplyEICBeamParameter(INPUTGENERATOR::EICFileReader);
   }
 
   // set up production relatedstuff
