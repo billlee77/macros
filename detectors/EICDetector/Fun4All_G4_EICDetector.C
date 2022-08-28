@@ -97,8 +97,8 @@ int Fun4All_G4_EICDetector(
   // If you don't know what to put here, set it to ep-high-divergence   
   //
   // Enable::BEAM_COLLISION_SETTING = "eA";
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
-  Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
@@ -277,7 +277,7 @@ int Fun4All_G4_EICDetector(
   {
     //! apply EIC beam parameter following EIC CDR
     INPUTGENERATOR::EICFileReader->SetFirstEntry(skip);
-    Input::ApplyEICBeamParameter(INPUTGENERATOR::EICFileReader);
+    // Input::ApplyEICBeamParameter(INPUTGENERATOR::EICFileReader);
   }
 
   // set up production relatedstuff
