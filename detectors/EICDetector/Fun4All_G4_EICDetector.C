@@ -82,8 +82,7 @@ int Fun4All_G4_EICDetector(
   // Option: 110x18, 110x10, 110x5, 41x5
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
-  // Enable::HFARFWD_ION_ENERGY = 100;
-  Enable::HFARFWD_ION_ENERGY = 256.6;   // corresponding to 100 GeV Lead
+  Enable::HFARFWD_ION_ENERGY = 275;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
   Enable::HFARBWD_E_ENERGY = 18;
@@ -96,9 +95,9 @@ int Fun4All_G4_EICDetector(
   //
   // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // If you don't know what to put here, set it to ep-high-divergence   
- 
-  Enable::BEAM_COLLISION_SETTING = "eA";
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  //
+  // Enable::BEAM_COLLISION_SETTING = "eA";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
 
   // Either:
@@ -308,7 +307,7 @@ int Fun4All_G4_EICDetector(
   //  Enable::VERBOSITY = 1;
 
   // whether to simulate the Be section of the beam pipe
-  // Enable::PIPE = true;
+  Enable::PIPE = true;
   // If need to disable EIC beam pipe extension beyond the Be-section:
   G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
