@@ -24,9 +24,29 @@
 
 R__LOAD_LIBRARY(libfun4all.so)
 
-int Fun4All_G4_EICDetector(
-    const int nEvents = 1,
-    const string &inputFile = "https://www.phenix.bnl.gov/WWW/publish/phnxbld/sPHENIX/files/sPHENIX_G4Hits_sHijing_9-11fm_00000_00010.root",
+
+int  Fun4All_G4_EICDetector(
+    const int nEvents = 1000,
+//    const int nEvents = 10,
+
+//    const string &inputFile = "https://www.phenix.bnl.gov/WWW/publish/phnxbld/sPHENIX/files/sPHENIX_G4Hits_sHijing_9-11fm_00000_00010.root",
+
+//    const string &inputFile = "https://www.phenix.bnl.gov/WWW/publish/phnxbld/sPHENIX/files/sPHENIX_G4Hits_sHijing_9-11fm_00000_00010.root",
+
+//    const string &inputFile = "/home/fun4all/Desktop/pythia_test/pythia.root",
+//    const string &inputFile = "/home/fun4all/Desktop/Dark_photon_100.root",
+//    const string &inputFile = "/home/fun4all/Desktop/100.root",
+//    const string &inputFile = "/home/fun4all/Desktop/7000.root",
+    const string &inputFile = "/home/fun4all/Desktop/10000_ref.root",
+
+//    const string &inputFile = "/home/fun4all/Desktop/Gun_1M_18_275.hempc",
+//    const string &inputFile = "/home/fun4all/Desktop/Gun_1M_eAu_18_110_1.txt",
+
+
+//    const string &inputFile = "/home/fun4all/Desktop/Ben/phot.hepmc",
+//    const string &inputFile = "/home/fun4all/Desktop/Ben/phot.root",
+//    const string &inputFile = "/home/fun4all/Desktop/Ben/phot.root",
+
     const string &outputFile = "G4EICDetector.root",
     const string &embed_input_file = "https://www.phenix.bnl.gov/WWW/publish/phnxbld/sPHENIX/files/sPHENIX_G4Hits_sHijing_9-11fm_00000_00010.root",
     const int skip = 0,
@@ -67,7 +87,7 @@ int Fun4All_G4_EICDetector(
   // switching IPs by comment/uncommenting the following lines
   // used for both beamline setting and for the event generator crossing boost
   Enable::IP6 = true;
-  //Enable::IP8 = true;
+  // Enable::IP8 = true;
 
    
   //===============
@@ -82,9 +102,19 @@ int Fun4All_G4_EICDetector(
   // Option: 110x18, 110x10, 110x5, 41x5
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
-  Enable::HFARFWD_ION_ENERGY = 275;
+//   Enable::HFARFWD_ION_ENERGY = 110.7;
+//  Enable::HFARFWD_ION_ENERGY = 275;
+//  Enable::HFARFWD_ION_ENERGY = 275;
+
+  Enable::HFARFWD_ION_ENERGY = 256.6;   // corresponding to 100 GeV Lead
+
+//  Enable::HFARFWD_ION_ENERGY = 82;
+//  Enable::HFARFWD_ION_ENERGY = 248.42;
+//  Enable::HFARFWD_ION_ENERGY = 101.85;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
+//  Enable::HFARBWD_E_ENERGY = 10;
+//  Enable::HFARBWD_E_ENERGY = 5;
   Enable::HFARBWD_E_ENERGY = 18;
 
   // Beam Scattering configuration setting specified by CDR
@@ -94,11 +124,11 @@ int Fun4All_G4_EICDetector(
   // Option 3: eA
   //
   // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  Enable::BEAM_COLLISION_SETTING = "eA";
   // If you don't know what to put here, set it to ep-high-divergence   
   //
   // Enable::BEAM_COLLISION_SETTING = "eA";
-  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
+  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
 
   // Either:
   // read previously generated g4-hits files, in this case it opens a DST and skips
@@ -154,7 +184,7 @@ int Fun4All_G4_EICDetector(
   INPUTREADEIC::filename = inputFile;
 
   // HepMC2 files
-  //  Input::HEPMC = true;
+  // Input::HEPMC = true;
   Input::VERBOSITY = 0;
   INPUTHEPMC::filename = inputFile;
 
@@ -167,12 +197,14 @@ int Fun4All_G4_EICDetector(
   //--------------
   // can only be set after InputInit() is called
 
+
   // Simple Input generator:
   // if you run more than one of these Input::SIMPLE_NUMBER > 1
   // add the settings for other with [1], next with [2]...
   if (Input::SIMPLE)
   {
-    INPUTGENERATOR::SimpleEventGenerator[0]->add_particles("pi-", 5);
+//    INPUTGENERATOR::SimpleEventGenerator[0]->add_particles("e-", 5);
+    INPUTGENERATOR::SimpleEventGenerator[0]->add_particles(183, 2);
     if (Input::HEPMC || Input::EMBED)
     {
       INPUTGENERATOR::SimpleEventGenerator[0]->set_reuse_existing_vertex(true);
@@ -188,7 +220,7 @@ int Fun4All_G4_EICDetector(
     }
     INPUTGENERATOR::SimpleEventGenerator[0]->set_eta_range(-3, 3);
     INPUTGENERATOR::SimpleEventGenerator[0]->set_phi_range(-M_PI, M_PI);
-    INPUTGENERATOR::SimpleEventGenerator[0]->set_pt_range(0.1, 20.);
+    INPUTGENERATOR::SimpleEventGenerator[0]->set_pt_range(10, 20.);
   }
   // Upsilons
   // if you run more than one of these Input::UPSILON_NUMBER > 1
@@ -211,20 +243,57 @@ int Fun4All_G4_EICDetector(
   // add the settings for other with [1], next with [2]...
   if (Input::GUN)
   {
-    INPUTGENERATOR::Gun[0]->AddParticle("pi-", 0, 1, 0);
+
+//     float theta = 25e-3;
+     float theta = 35e-3;
+////    INPUTGENERATOR::Gun[0]->AddParticle("pi-", 0, 1, 0);
+//    INPUTGENERATOR::Gun[0]->AddParticle("proton", 0, 1, 0);
+//    INPUTGENERATOR::Gun[0]->set_mom(sin(theta)*275, 0, cos(theta)*275); // 5 mrad                        
+//    INPUTGENERATOR::Gun[0]->set_vtx(0, 0, 0);
+
+    INPUTGENERATOR::Gun[0]->AddParticle("pi0", 0, 1, 0);
+    INPUTGENERATOR::Gun[0]->set_mom(sin(theta)*35, 0, cos(theta)*35); // 5 mrad                        
     INPUTGENERATOR::Gun[0]->set_vtx(0, 0, 0);
+
+
+
+
   }
 
   if (Input::IONGUN)
    {
      float theta = -25e-3;
+//     float theta = 35e-3;
  
      INPUTGENERATOR::IonGun[0]->SetA(197);
      INPUTGENERATOR::IonGun[0]->SetZ(79);
      INPUTGENERATOR::IonGun[0]->SetCharge(79);
-     INPUTGENERATOR::IonGun[0]->SetMom(sin(theta)*110*197, 0,cos(theta)*110*197); // -25 mrad                        
+
+//     INPUTGENERATOR::IonGun[0]->SetMom(sin(theta)*275*79/197.*197 ,0,cos(theta)*275*79/197.*197); // 5 mrad                        
+     INPUTGENERATOR::IonGun[0]->SetMom(sin(theta)*110*197, 0,cos(theta)*110*197); // 5 mrad                        
 
      INPUTGENERATOR::IonGun[0]->Print();
+
+//     exit(0);
+
+////     float theta = -25e-3;
+//     INPUTGENERATOR::IonGun[0]->SetA(1);
+//     INPUTGENERATOR::IonGun[0]->SetZ(1);
+//     INPUTGENERATOR::IonGun[0]->SetCharge(1);
+//     INPUTGENERATOR::IonGun[0]->SetMom(sin(theta)*275,0,cos(theta)*275); // 5 m
+
+//     float theta = -25e-3;
+//     INPUTGENERATOR::IonGun[0]->SetA(4);
+//     INPUTGENERATOR::IonGun[0]->SetZ(2);
+//     INPUTGENERATOR::IonGun[0]->SetCharge(2);
+//     INPUTGENERATOR::IonGun[0]->SetMom(sin(theta)*275*2/4.*4,0,cos(theta)*275*2/4.*4); // 5 m
+
+
+//     INPUTGENERATOR::IonGun[0]->SetA(89);
+//     INPUTGENERATOR::IonGun[0]->SetZ(40);
+//     INPUTGENERATOR::IonGun[0]->SetCharge(40);
+////     INPUTGENERATOR::IonGun[0]->SetMom(sin(theta)*275*79/197.*197 ,0,cos(theta)*275*79/197.*197); // 5 mrad                        
+//     INPUTGENERATOR::IonGun[0]->SetMom(sin(theta)*89*123, 0, cos(theta)*89*123); // 5 mrad 
 
    }
 
@@ -247,6 +316,8 @@ int Fun4All_G4_EICDetector(
     //! apply EIC beam parameter following EIC CDR
     Input::ApplyEICBeamParameter(INPUTGENERATOR::Sartre);
   }
+
+
 
   //--------------
   // Set Input Manager specific options
@@ -287,6 +358,7 @@ int Fun4All_G4_EICDetector(
   // Write the DST
   //======================
 
+
   Enable::DSTOUT = true;
   DstOut::OutputDir = outdir;
   DstOut::OutputFile = outputFile;
@@ -307,7 +379,7 @@ int Fun4All_G4_EICDetector(
   //  Enable::VERBOSITY = 1;
 
   // whether to simulate the Be section of the beam pipe
-  Enable::PIPE = true;
+//  Enable::PIPE = true;
   // If need to disable EIC beam pipe extension beyond the Be-section:
   G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
@@ -321,7 +393,7 @@ int Fun4All_G4_EICDetector(
   Enable::EGEM = false;
   Enable::FGEM = false; // deactivated as it's replaced by a FTTL layer
   // Enable::BGEM = true; // not yet defined in this model
-  Enable::RWELL = false;
+  Enable::RWELL = true;
   // barrel tracker
   Enable::TrackingService = true;
   // Enable::TrackingService_VERBOSITY = INT_MAX - 10;
@@ -378,9 +450,14 @@ int Fun4All_G4_EICDetector(
 
 
   // enable forward calos
-  Enable::FEMC    = true;
+//  Enable::FEMC    = true;
+//  Enable::DRCALO  = false;
+//  Enable::LFHCAL  = true;
+
+  Enable::FEMC    = false;
   Enable::DRCALO  = false;
-  Enable::LFHCAL  = true;
+  Enable::LFHCAL  = false;
+
 
   // EICDetector geometry - 'electron' direction
   Enable::mRICH = true;
@@ -437,16 +514,18 @@ int Fun4All_G4_EICDetector(
   // Enable::RP_DISABLE_HITPLANE = true;
    
    //Far Backward detectors
-//  Enable::BWD = true;
-//  Enable::BWDN[0]=true; // 1st Q2 tagger
-//  Enable::BWDN[1]=true; // 2nd Q2 tagger
-//  Enable::BWDN[2]=true; // 1st Lumi
-//  Enable::BWDN[3]=true; // 2nd Lumi (+)
-//  Enable::BWDN[4]=true; // 3rd Lumi (-)
+  Enable::BWD = true;
+  Enable::BWDN[0]=true; // 1st Q2 tagger
+  Enable::BWDN[1]=true; // 2nd Q2 tagger
+  Enable::BWDN[2]=true; // 1st Lumi
+  Enable::BWDN[3]=true; // 2nd Lumi (+)
+  Enable::BWDN[4]=true; // 3rd Lumi (-)
 //  Enable::BWD_CELL = Enable::BWD && true;
 //  Enable::BWD_TOWER = Enable::BWD_CELL && true;
 //  Enable::BWD_CLUSTER = Enable::BWD_TOWER && true;
 //  Enable::BWD_EVAL = Enable::BWD_CLUSTER && true;
+
+
 
   //************************************************************
   // details for calos: cells, towers, clusters
@@ -499,6 +578,8 @@ int Fun4All_G4_EICDetector(
   Enable::EVENT_EVAL_DO_HEPMC   = Input::PYTHIA6 or Input::PYTHIA8 or Input::SARTRE or Input::HEPMC or Input::READEIC;
   Enable::EVENT_EVAL_DO_EVT_LVL = Input::PYTHIA6 or Input::PYTHIA8 or Input::READEIC;
 
+
+
   //Enable::USER = true;
 
   //---------------
@@ -506,7 +587,7 @@ int Fun4All_G4_EICDetector(
   //---------------
   //  G4WORLD::PhysicsList = "FTFP_BERT"; //FTFP_BERT_HP best for calo
   //  G4WORLD::WorldMaterial = "G4_AIR"; // set to G4_GALACTIC for material scans
-  //  G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
+  // G4WORLD::WorldMaterial = "G4_Galactic"; // set to G4_GALACTIC for material scans
 
   //---------------
   // Magnet Settings
@@ -542,9 +623,9 @@ int Fun4All_G4_EICDetector(
   //------------------
   if (Enable::CEMC_CELL) CEMC_Cells();
 
-  if (Enable::HCALIN_CELL) HCALInner_Cells();
+//  if (Enable::HCALIN_CELL) HCALInner_Cells();
 
-  if (Enable::HCALOUT_CELL) HCALOuter_Cells();
+//  if (Enable::HCALOUT_CELL) HCALOuter_Cells();
 
   //-----------------------------
   // CEMC towering and clustering
@@ -557,12 +638,12 @@ int Fun4All_G4_EICDetector(
   // HCAL towering and clustering
   //-----------------------------
 
-  if (Enable::HCALIN_TOWER) HCALInner_Towers();
-  if (Enable::HCALIN_CLUSTER) HCALInner_Clusters();
-
-  if (Enable::HCALOUT_TOWER) HCALOuter_Towers();
-  if (Enable::HCALOUT_CLUSTER) HCALOuter_Clusters();
-
+//  if (Enable::HCALIN_TOWER) HCALInner_Towers();
+//  if (Enable::HCALIN_CLUSTER) HCALInner_Clusters();
+//
+//  if (Enable::HCALOUT_TOWER) HCALOuter_Towers();
+//  if (Enable::HCALOUT_CLUSTER) HCALOuter_Clusters();
+//
   //-----------------------------
   // e, h direction Calorimeter  towering and clustering
   //-----------------------------
@@ -570,14 +651,17 @@ int Fun4All_G4_EICDetector(
   if (Enable::FEMC_TOWER) FEMC_Towers();
   if (Enable::FEMC_CLUSTER) FEMC_Clusters();
 
-  if (Enable::FHCAL_TOWER) FHCAL_Towers();
-  if (Enable::FHCAL_CLUSTER) FHCAL_Clusters();
+//  if (Enable::FHCAL_TOWER) FHCAL_Towers();
+//  if (Enable::FHCAL_CLUSTER) FHCAL_Clusters();
 
   if (Enable::DRCALO_TOWER) DRCALO_Towers();
   if (Enable::DRCALO_CLUSTER) DRCALO_Clusters();
 
-  if (Enable::LFHCAL_TOWER) LFHCAL_Towers();
-  if (Enable::LFHCAL_CLUSTER) LFHCAL_Clusters();
+///----------------------------
+// Commented out for ALP
+//
+//  if (Enable::LFHCAL_TOWER) LFHCAL_Towers();
+//  if (Enable::LFHCAL_CLUSTER) LFHCAL_Clusters();
 
   if (Enable::EEMC_TOWER) EEMC_Towers();
   if (Enable::EEMC_CLUSTER) EEMC_Clusters();
@@ -599,30 +683,32 @@ int Fun4All_G4_EICDetector(
 
   if (Enable::DSTOUT_COMPRESS) ShowerCompress();
 
-  //--------------
-  // Tracking and PID
-  //--------------
 
-  if (Enable::TRACKING) Tracking_Reco();
+//  //--------------
+//  // Tracking and PID
+//  //--------------
+//
+//  if (Enable::TRACKING) Tracking_Reco();
+//
+//  if (Enable::DIRC_RECO) DIRCReco();
+//
+//  if (Enable::mRICH_RECO ) mRICHReco();
+//
+//  if (Enable::RICH_RECO) RICHReco();
 
-  if (Enable::DIRC_RECO) DIRCReco();
+//  //-----------------
+//  // Global Vertexing
+//  //-----------------
+//
+//  if (Enable::GLOBAL_RECO)
+//  {
+//    Global_Reco();
+//  }
+//  else if (Enable::GLOBAL_FASTSIM)
+//  {
+//    Global_FastSim();
+//  }
 
-  if (Enable::mRICH_RECO ) mRICHReco();
-
-  if (Enable::RICH_RECO) RICHReco();
-
-  //-----------------
-  // Global Vertexing
-  //-----------------
-
-  if (Enable::GLOBAL_RECO)
-  {
-    Global_Reco();
-  }
-  else if (Enable::GLOBAL_FASTSIM)
-  {
-    Global_FastSim();
-  }
 
   //---------
   // Jet reco
@@ -644,8 +730,8 @@ int Fun4All_G4_EICDetector(
   // Simulation evaluation
   //----------------------
 
-  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
-
+//  if (Enable::EVENT_EVAL) Event_Eval(outputroot + "_eventtree.root");
+//
 //  if (Enable::TRACKING_EVAL) Tracking_Eval(outputroot + "_g4tracking_eval.root");
 //
 //  if (Enable::CEMC_EVAL) CEMC_Eval(outputroot + "_g4cemc_eval.root");
@@ -673,6 +759,7 @@ int Fun4All_G4_EICDetector(
   //--------------
   // Set up Input Managers
   //--------------
+
 
   InputManagers();
 
