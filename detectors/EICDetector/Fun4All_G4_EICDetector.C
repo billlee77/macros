@@ -82,9 +82,9 @@ int Fun4All_G4_EICDetector(
   // Option: 110x18, 110x10, 110x5, 41x5
 
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
-  // Enable::HFARFWD_ION_ENERGY = 275;
-  Enable::HFARFWD_ION_ENERGY = 256.6;  // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
+  Enable::HFARFWD_ION_ENERGY = 275;
 
+  // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
   Enable::HFARBWD_E_ENERGY = 18;
 
   // Beam Scattering configuration setting specified by CDR
@@ -96,8 +96,8 @@ int Fun4All_G4_EICDetector(
   // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // If you don't know what to put here, set it to ep-high-divergence   
   //
-  Enable::BEAM_COLLISION_SETTING = "eA";
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  // Enable::BEAM_COLLISION_SETTING = "eA";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
   // Enable::BEAM_COLLISION_SETTING = "ep-high-acceptance";
 
   // Either:
@@ -307,7 +307,7 @@ int Fun4All_G4_EICDetector(
   //  Enable::VERBOSITY = 1;
 
   // whether to simulate the Be section of the beam pipe
-  // Enable::PIPE = true;
+  Enable::PIPE = true;
   // If need to disable EIC beam pipe extension beyond the Be-section:
   G4PIPE::use_forward_pipes = true;
   //EIC hadron far forward magnets and detectors. IP6 and IP8 are incompatible (pick either or);
@@ -380,7 +380,7 @@ int Fun4All_G4_EICDetector(
   // enable forward calos
   Enable::FEMC    = true;
   Enable::DRCALO  = false;
-  Enable::LFHCAL  = false;
+  Enable::LFHCAL  = true;
 
   // EICDetector geometry - 'electron' direction
   Enable::mRICH = true;
@@ -542,9 +542,9 @@ int Fun4All_G4_EICDetector(
   //------------------
   if (Enable::CEMC_CELL) CEMC_Cells();
 
-//  if (Enable::HCALIN_CELL) HCALInner_Cells();
+  if (Enable::HCALIN_CELL) HCALInner_Cells();
 
-//  if (Enable::HCALOUT_CELL) HCALOuter_Cells();
+  if (Enable::HCALOUT_CELL) HCALOuter_Cells();
 
   //-----------------------------
   // CEMC towering and clustering
@@ -557,11 +557,11 @@ int Fun4All_G4_EICDetector(
   // HCAL towering and clustering
   //-----------------------------
 
-//  if (Enable::HCALIN_TOWER) HCALInner_Towers();
-//  if (Enable::HCALIN_CLUSTER) HCALInner_Clusters();
-//
-//  if (Enable::HCALOUT_TOWER) HCALOuter_Towers();
-//  if (Enable::HCALOUT_CLUSTER) HCALOuter_Clusters();
+  if (Enable::HCALIN_TOWER) HCALInner_Towers();
+  if (Enable::HCALIN_CLUSTER) HCALInner_Clusters();
+
+  if (Enable::HCALOUT_TOWER) HCALOuter_Towers();
+  if (Enable::HCALOUT_CLUSTER) HCALOuter_Clusters();
 
   //-----------------------------
   // e, h direction Calorimeter  towering and clustering
@@ -570,20 +570,14 @@ int Fun4All_G4_EICDetector(
   if (Enable::FEMC_TOWER) FEMC_Towers();
   if (Enable::FEMC_CLUSTER) FEMC_Clusters();
 
-///----------------------------
-// Commented out for ALP
-//  if (Enable::FHCAL_TOWER) FHCAL_Towers();
-//  if (Enable::FHCAL_CLUSTER) FHCAL_Clusters();
+  if (Enable::FHCAL_TOWER) FHCAL_Towers();
+  if (Enable::FHCAL_CLUSTER) FHCAL_Clusters();
 
   if (Enable::DRCALO_TOWER) DRCALO_Towers();
   if (Enable::DRCALO_CLUSTER) DRCALO_Clusters();
 
-
-///----------------------------
-// Commented out for ALP
-//
-//  if (Enable::LFHCAL_TOWER) LFHCAL_Towers();
-//  if (Enable::LFHCAL_CLUSTER) LFHCAL_Clusters();
+  if (Enable::LFHCAL_TOWER) LFHCAL_Towers();
+  if (Enable::LFHCAL_CLUSTER) LFHCAL_Clusters();
 
   if (Enable::EEMC_TOWER) EEMC_Towers();
   if (Enable::EEMC_CLUSTER) EEMC_Clusters();
@@ -605,30 +599,30 @@ int Fun4All_G4_EICDetector(
 
   if (Enable::DSTOUT_COMPRESS) ShowerCompress();
 
-//  //--------------
-//  // Tracking and PID
-//  //--------------
-//
-//  if (Enable::TRACKING) Tracking_Reco();
-//
-//  if (Enable::DIRC_RECO) DIRCReco();
-//
-//  if (Enable::mRICH_RECO ) mRICHReco();
-//
-//  if (Enable::RICH_RECO) RICHReco();
-//
-//  //-----------------
-//  // Global Vertexing
-//  //-----------------
-//
-//  if (Enable::GLOBAL_RECO)
-//  {
-//    Global_Reco();
-//  }
-//  else if (Enable::GLOBAL_FASTSIM)
-//  {
-//    Global_FastSim();
-//  }
+  //--------------
+  // Tracking and PID
+  //--------------
+
+  if (Enable::TRACKING) Tracking_Reco();
+
+  if (Enable::DIRC_RECO) DIRCReco();
+
+  if (Enable::mRICH_RECO ) mRICHReco();
+
+  if (Enable::RICH_RECO) RICHReco();
+
+  //-----------------
+  // Global Vertexing
+  //-----------------
+
+  if (Enable::GLOBAL_RECO)
+  {
+    Global_Reco();
+  }
+  else if (Enable::GLOBAL_FASTSIM)
+  {
+    Global_FastSim();
+  }
 
   //---------
   // Jet reco
