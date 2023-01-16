@@ -124,8 +124,8 @@ int  Fun4All_G4_EICDetector(
   // Option 2: ep-high-divergence
   // Option 3: eA
   //
-  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
-  Enable::BEAM_COLLISION_SETTING = "eA";
+  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  //Enable::BEAM_COLLISION_SETTING = "eA";
   // If you don't know what to put here, set it to ep-high-divergence   
   //
   // Enable::BEAM_COLLISION_SETTING = "eA";
