@@ -107,16 +107,17 @@ int  Fun4All_G4_EICDetector(
 //  Enable::HFARFWD_ION_ENERGY = 275;
 
 //  Enable::HFARFWD_ION_ENERGY = 256.6;   // corresponding to 100 GeV Lead
-  Enable::HFARFWD_ION_ENERGY = 61.5;  
+//  Enable::HFARFWD_ION_ENERGY = 61.5;  
 //  Enable::HFARFWD_ION_ENERGY = 249;  
+  Enable::HFARFWD_ION_ENERGY = 150;  
 
 //  Enable::HFARFWD_ION_ENERGY = 82;
 //  Enable::HFARFWD_ION_ENERGY = 248.42;
 //  Enable::HFARFWD_ION_ENERGY = 101.85;
 
   // Setting electron beam pipe energy. If you don't know what to set here, leave it at 18
-//  Enable::HFARBWD_E_ENERGY = 10;
-  Enable::HFARBWD_E_ENERGY = 5;
+  Enable::HFARBWD_E_ENERGY = 10;
+//  Enable::HFARBWD_E_ENERGY = 5;
 //  Enable::HFARBWD_E_ENERGY = 18;
 
   // Beam Scattering configuration setting specified by CDR
