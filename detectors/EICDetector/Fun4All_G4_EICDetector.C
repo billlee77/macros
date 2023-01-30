@@ -109,7 +109,7 @@ int  Fun4All_G4_EICDetector(
 //  Enable::HFARFWD_ION_ENERGY = 256.6;   // corresponding to 100 GeV Lead
 //  Enable::HFARFWD_ION_ENERGY = 61.5;  
 //  Enable::HFARFWD_ION_ENERGY = 249;  
-  Enable::HFARFWD_ION_ENERGY = 150;  
+  Enable::HFARFWD_ION_ENERGY = 253.66;  // corresponding to 100 GeV Lead 208
 
 //  Enable::HFARFWD_ION_ENERGY = 82;
 //  Enable::HFARFWD_ION_ENERGY = 248.42;
@@ -126,8 +126,8 @@ int  Fun4All_G4_EICDetector(
   // Option 2: ep-high-divergence
   // Option 3: eA
   //
-  Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
-  //Enable::BEAM_COLLISION_SETTING = "eA";
+  // Enable::BEAM_COLLISION_SETTING = "ep-high-divergence";
+  Enable::BEAM_COLLISION_SETTING = "eA";
   // If you don't know what to put here, set it to ep-high-divergence   
   //
   // Enable::BEAM_COLLISION_SETTING = "eA";
