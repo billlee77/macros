@@ -81,7 +81,6 @@ int Fun4All_G4_EICDetector(
   // The setting options for e-p high divergence setting (A energy x e energy):
   // Option: 110x18, 110x10, 110x5, 41x5
 
-
   // Setting proton beam pipe energy. If you don't know what to set here, leave it at 275
   Enable::HFARFWD_ION_ENERGY = 150;
 
